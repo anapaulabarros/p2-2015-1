@@ -28,9 +28,13 @@ public class Tela {
 				System.out.println(" ");
 				break;	
 			case 6:
+				System.out.println(" ");
 				System.out.println("= = = = Venda de Produtos = = = =");
 				System.out.println(" ");
 				break;
+			case 7:
+				System.out.println("Ainda não há nenhum produto cadastrado no sistema.");
+				break;	
 			default:
 				break;
 		}
@@ -78,5 +82,15 @@ public class Tela {
 		System.out.print("Deseja cadastrar outro produto? ");
 		String opcao = sc.nextLine();
 		return opcao;
+	}
+	
+	public String ContinuarOperar() {
+		System.out.print("Deseja realizar alguma operacao? ");
+		String opcao = sc.nextLine();
+		return opcao;
+	}
+	
+	public void exibeMensagemProdutoNaoCadastrado(String nome) {
+		System.out.print("==> "+ nome + " não cadastrado no sistema.");
 	}
 }

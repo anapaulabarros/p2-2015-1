@@ -11,8 +11,6 @@ public class Main {
 			
 			int opcaoEscolhida = tela.exibeMenuOpcoes();
 			
-
-			
 				if (opcaoEscolhida == 1){
 					tela.exibeMensagensAlerta(5);
 					for (int i = 0; i < produtos.length; i++) {
@@ -22,12 +20,24 @@ public class Main {
 						
 						String opcaoOperacao = tela.ContinuarCadastar();
 						if (opcaoOperacao.equals("Nao")) {
+							String manipularSistema = tela.ContinuarOperar();
+							if (manipularSistema.equals("Sim")) {
+								tela.exibeMensagensAlerta(6);
+								String produtoProcurado = tela.lerNomeProduto();
+								System.out.println(buscaProduto(produtos, produtoProcurado));
+							}
 							return;
 						}
+					}	
+				} else if(opcaoEscolhida == 2) {
+					if (produtos[0] == null) {
+						tela.exibeMensagensAlerta(7);
+						return;
 					}
+					
 				} else if(opcaoEscolhida == 4) {
 					System.exit(1);
-				}	
+				}		
 				
 				
 	}

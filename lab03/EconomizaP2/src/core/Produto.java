@@ -22,11 +22,5 @@ public class Produto {
 	public String getCategoria() {
 		return this.categoria;
 	}
-	
-	public double venderProduto(Produto[] produtos, String nomeProduto) {
-		double totalArrecardado = 0;
-		
-		return totalArrecardado;
-	}
-	
+
 }
