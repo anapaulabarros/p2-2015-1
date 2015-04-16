@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+import core.Produto;
 
 public class Tela {
 	private Scanner sc;
@@ -35,6 +36,14 @@ public class Tela {
 			case 7:
 				System.out.println("Ainda não há nenhum produto cadastrado no sistema.");
 				break;	
+			case 8:
+				System.out.println(" ");
+				System.out.print("Digite a quantidade que deseja vender: ");
+				System.out.println(" ");
+				break;	
+			case 9:
+				System.out.print("Você saiu do sistema.");
+				break;	
 			default:
 				break;
 		}
@@ -57,6 +66,12 @@ public class Tela {
 		exibeMensagensAlerta(2);
 		String nomeLida = sc.nextLine();
 		return nomeLida;
+	}
+	
+	public int lerQuantidadeProduto() {
+		exibeMensagensAlerta(8);
+		int qtdLida = sc.nextInt();
+		return qtdLida;
 	}
 	
 	public double lerPrecoUnitario() {
@@ -84,6 +99,12 @@ public class Tela {
 		return opcao;
 	}
 	
+	public String ContinuarVender() {
+		System.out.print("Deseja vender outro produto? ");
+		String opcao = sc.nextLine();
+		return opcao;
+	}
+	
 	public String ContinuarOperar() {
 		System.out.print("Deseja realizar alguma operacao? ");
 		String opcao = sc.nextLine();
@@ -92,5 +113,14 @@ public class Tela {
 	
 	public void exibeMensagemProdutoNaoCadastrado(String nome) {
 		System.out.print("==> "+ nome + " não cadastrado no sistema.");
+	}
+	
+	public void exibeDetalhesProduto(Produto produto) {
+		System.out.println("==> " + produto.getNome() + "(" + produto.getCategoria() + "). R$ " + produto.getPreco());
+	}
+	
+	public void exibeTotalArrecadado(double preco, int quantidade) {
+		double total = preco * quantidade;
+		System.out.println("==> Total arrecadado: R$ " + total);
 	}
 }

@@ -22,9 +22,18 @@ public class Main {
 						if (opcaoOperacao.equals("Nao")) {
 							String manipularSistema = tela.ContinuarOperar();
 							if (manipularSistema.equals("Sim")) {
+								// venda do produto
 								tela.exibeMensagensAlerta(6);
 								String produtoProcurado = tela.lerNomeProduto();
-								System.out.println(buscaProduto(produtos, produtoProcurado));
+								
+								if (buscaProduto(produtos, produtoProcurado) == false){
+									tela.exibeMensagemProdutoNaoCadastrado(produtoProcurado);
+								} else {
+									tela.exibeDetalhesProduto(produtos[i]);	
+									int quantidade = tela.lerQuantidadeProduto();
+									tela.exibeTotalArrecadado(produtos[i].getPreco(), quantidade);
+									
+								}
 							}
 							return;
 						}
@@ -36,6 +45,7 @@ public class Main {
 					}
 					
 				} else if(opcaoEscolhida == 4) {
+					tela.exibeMensagensAlerta(9);
 					System.exit(1);
 				}		
 				
@@ -44,10 +54,14 @@ public class Main {
 
 	public static boolean buscaProduto(Produto[] produtos, String nomeProduto) {
 		for (int i = 0; i < produtos.length; i++) {
-			if (produtos[i].getNome().equals(nomeProduto)) {
+			if (produtos[i] == null) {
+				return false;
+			} else if (produtos[i].getNome().equals(nomeProduto)) {
 				return true;
 			} 			
 		}
 		return false;
 	}
+	
+	
 }
