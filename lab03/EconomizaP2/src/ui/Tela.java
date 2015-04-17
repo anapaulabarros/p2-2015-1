@@ -34,15 +34,14 @@ public class Tela {
 				System.out.println(" ");
 				break;
 			case 7:
+				System.out.println(" ");
 				System.out.println("Ainda não há nenhum produto cadastrado no sistema.");
+				System.out.println(" ");
 				break;	
 			case 8:
 				System.out.println(" ");
 				System.out.print("Digite a quantidade que deseja vender: ");
 				System.out.println(" ");
-				break;	
-			case 9:
-				System.out.print("Você saiu do sistema.");
 				break;	
 			default:
 				break;
@@ -71,6 +70,7 @@ public class Tela {
 	public int lerQuantidadeProduto() {
 		exibeMensagensAlerta(8);
 		int qtdLida = sc.nextInt();
+		sc.nextLine();
 		return qtdLida;
 	}
 	
@@ -100,7 +100,7 @@ public class Tela {
 	}
 	
 	public String ContinuarVender() {
-		System.out.print("Deseja vender outro produto? ");
+		System.out.println("Deseja vender outro produto? ");
 		String opcao = sc.nextLine();
 		return opcao;
 	}
@@ -113,14 +113,14 @@ public class Tela {
 	
 	public void exibeMensagemProdutoNaoCadastrado(String nome) {
 		System.out.print("==> "+ nome + " não cadastrado no sistema.");
+		System.out.println(" ");
 	}
 	
 	public void exibeDetalhesProduto(Produto produto) {
-		System.out.println("==> " + produto.getNome() + "(" + produto.getCategoria() + "). R$ " + produto.getPreco());
+		System.out.println("==> " + produto.getNome() + " (" + produto.getCategoria() + "). R$ " + produto.getPreco());
 	}
 	
-	public void exibeTotalArrecadado(double preco, int quantidade) {
-		double total = preco * quantidade;
-		System.out.println("==> Total arrecadado: R$ " + total);
+	public void exibeTotalArrecadado(double totalArrecadoPorProduto) {
+		System.out.println("==> Total arrecadado: R$ " + totalArrecadoPorProduto);
 	}
 }
