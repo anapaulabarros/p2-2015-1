@@ -3,56 +3,53 @@ import ui.Tela;
 
 public class Main {
 	public static void main(String[] args) {
-			Tela tela = new Tela();
-			final int TAMANHO_ARRAY = 5;
-			Produto[] produtos = new Produto[TAMANHO_ARRAY];
 			
-			tela.exibeMensagensAlerta(1);
+		Tela tela = new Tela();
+		Produto[] produtos = new Produto[5];
 			
-			int opcaoEscolhida = tela.exibeMenuOpcoes();
 			
-				if (opcaoEscolhida == 1){
-					tela.exibeMensagensAlerta(5);
-					for (int i = 0; i < produtos.length; i++) {
-					
-						produtos[i] = new Produto(tela.lerNomeProduto(), tela.lerPrecoUnitario(), tela.lerTipoProduto());
-						tela.exibeResultadoCadastro(produtos[i].getNome());
-						
-						String opcaoOperacao = tela.ContinuarCadastar();
-						if (opcaoOperacao.equals("Nao")) {
-							String manipularSistema = tela.ContinuarOperar();
-							if (manipularSistema.equals("Sim")) {
-								// venda do produto
-								tela.exibeMensagensAlerta(6);
-								String produtoProcurado = tela.lerNomeProduto();
-								
-								if (buscaProduto(produtos, produtoProcurado) == false){
-									tela.exibeMensagemProdutoNaoCadastrado(produtoProcurado);
-								} else {
-									tela.exibeDetalhesProduto(produtos[i]);	
-									int quantidade = tela.lerQuantidadeProduto();
-									tela.exibeTotalArrecadado(produtos[i].getPreco(), quantidade);
-									
-								}
-							}
-							return;
-						}
-					}	
-				} else if(opcaoEscolhida == 2) {
-					if (produtos[0] == null) {
-						tela.exibeMensagensAlerta(7);
-						return;
+		tela.exibeMensagensAlerta(1);
+			
+		int opcaoEscolhida = tela.exibeMenuOpcoes();
+		
+		switch (opcaoEscolhida) {
+			case 1:
+				int cont = 0;
+				String cadastra = "Sim";
+				tela.exibeMensagensAlerta(5);
+				while (cadastra.equals("Sim")) {
+					cadastraProduto(tela, produtos, cont);
+					String opcaoOperacao = tela.ContinuarCadastar();
+					cont++;
+					if (opcaoOperacao.equals("Nao")) {
+						opcaoEscolhida = tela.exibeMenuOpcoes();
+						cadastra = "Nao";
 					}
-					
-				} else if(opcaoEscolhida == 4) {
-					tela.exibeMensagensAlerta(9);
-					System.exit(1);
-				}		
-				
+				}
+				break;
+			case 2:
+				System.out.println("venda");
+				break;
+			case 3:
+				System.out.println("balanco");
+				break;
+			case 4:
+				System.out.println("fim");
+				System.exit(1);
+				break;
+			default:
+				System.exit(1);
+				break;
+		}
 				
 	}
 
-	public static boolean buscaProduto(Produto[] produtos, String nomeProduto) {
+	public static void cadastraProduto(Tela tela, Produto[] produtos,int controle) {	
+		produtos[controle] = new Produto(tela.lerNomeProduto(), tela.lerPrecoUnitario(), tela.lerTipoProduto());
+		tela.exibeResultadoCadastro(produtos[controle].getNome());
+	}
+	
+	public boolean buscaProduto(Produto[] produtos, String nomeProduto) {
 		for (int i = 0; i < produtos.length; i++) {
 			if (produtos[i] == null) {
 				return false;
@@ -62,6 +59,7 @@ public class Main {
 		}
 		return false;
 	}
+	
 	
 	
 }
