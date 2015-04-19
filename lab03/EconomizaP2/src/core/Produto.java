@@ -6,11 +6,11 @@ public class Produto {
 	private String categoria;
 	private int quantidade;
 	
-	public Produto(String nome, double preco, String categoria) {
+	public Produto(String nome, double preco, String categoria, int quantidade) {
 		this.nome = nome;
 		this.preco = preco;
 		this.categoria = categoria;
-		this.quantidade = 0;
+		this.quantidade = quantidade;
 	}
 	
 	public String getNome() {
@@ -25,6 +25,9 @@ public class Produto {
 		return this.categoria;
 	}
 
+	public int getQuantidade() {
+		return this.quantidade;
+	}
 	public int setQuantidade(int valor) {
 		this.quantidade = valor;
 		return quantidade;

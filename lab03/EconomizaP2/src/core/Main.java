@@ -8,13 +8,17 @@ public class Main {
 		Produto[] produtos = new Produto[5];
 		double[] listaVendas = new double[5];
 		int cont = 0;
+		final int OP_CADASTRA = 1;
+		final int OP_VENDE = 2;
+		final int OP_BALANCO = 3;
+		final int OP_SAIR = 4;
 		
 		tela.exibeMensagensAlerta(1);
 			
 		int opcaoEscolhida = tela.exibeMenuOpcoes(); 
-		while (opcaoEscolhida != 4) { 
+		while (opcaoEscolhida != OP_SAIR) { 
 			switch (opcaoEscolhida) {
-				case 1:
+				case OP_CADASTRA:
 					String cadastra = "Sim";
 					tela.exibeMensagensAlerta(5);
 					while (cadastra.equals("Sim")) {
@@ -26,7 +30,7 @@ public class Main {
 						}
 					}
 					break;
-				case 2:
+				case OP_VENDE:
 					if (cont > 0 && produtos[cont - 1] != null){
 						String vendas = "Sim";
 						while (vendas.equals("Sim")) {
@@ -41,23 +45,26 @@ public class Main {
 						tela.exibeMensagensAlerta(7);
 					}
 					break;
-				case 3:
+				case OP_BALANCO:
 					double somaTotal = 0;
+					double somaProdutosNaoVendidos = 0;
 					if (cont > 0 && produtos[cont - 1] != null){
 						tela.exibeMensagensAlerta(9);
 						System.out.println("Produtos cadastrados:");
 						for (int i = 0; i < produtos.length ; i++) {
 							if (produtos[i] != null) {
 								tela.exibeProdutoCadastrado(i + 1, produtos[i]);
+								somaProdutosNaoVendidos += produtos[i].getPreco() * produtos[i].getQuantidade();
 							}
 							somaTotal += listaVendas[i];
 						}
 						tela.exibeTotalDasVendas(somaTotal);
+						tela.exibeTotalDasVendasNaoRealizadas(somaProdutosNaoVendidos);
 					}else {
 						tela.exibeMensagensAlerta(10);
 					}
 					break;
-				case 4:
+				case OP_SAIR:
 					System.exit(1);
 				default:
 					System.exit(1);
@@ -68,8 +75,8 @@ public class Main {
 	}
 
 	public static void cadastraProduto(Tela tela, Produto[] produtos,int controle) {	
-		produtos[controle] = new Produto(tela.lerNomeProduto(), tela.lerPrecoUnitario(), tela.lerTipoProduto());
-		tela.exibeResultadoCadastro(produtos[controle].getNome());
+		produtos[controle] = new Produto(tela.lerNomeProduto(), tela.lerPrecoUnitario(), tela.lerTipoProduto(), tela.lerQuantidade());
+		tela.exibeResultadoCadastro(produtos[controle].getNome(), produtos[controle].getQuantidade());
 	}
 	
 	public static int buscaProduto(Produto[] produtos, String nomeProduto) {
@@ -95,9 +102,16 @@ public class Main {
 		} else {
 			tela.exibeDetalhesProduto(produtos[resultadoBusca]);
 			int qtdProdutovender = tela.lerQuantidadeProduto();
-			double calculaTotal = calculaArracadacao(produtos[resultadoBusca].getPreco(), qtdProdutovender);
-			valorVenda = calculaTotal;
-			tela.exibeTotalArrecadado(calculaTotal);
+			if (qtdProdutovender <= produtos[resultadoBusca].getQuantidade()) {
+				double calculaTotal = calculaArracadacao(produtos[resultadoBusca].getPreco(), qtdProdutovender);
+				valorVenda = calculaTotal;
+				tela.exibeTotalArrecadado(calculaTotal);
+				produtos[resultadoBusca].setQuantidade(produtos[resultadoBusca].getQuantidade() - qtdProdutovender); // atualiza estoque do produto
+				
+			}else {
+				tela.exibeVendaProibida(produtos[resultadoBusca].getNome());
+			}
+			
 		}
 		return valorVenda;
 	}

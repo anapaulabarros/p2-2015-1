@@ -54,6 +54,9 @@ public class Tela {
 				System.out.println("Nao há balanço, pois ainda não há vendas realizadas.");
 				System.out.println(" ");
 				break;	
+			case 11:
+				System.out.print("Digite a quantidade no estoque: ");
+				break;	
 			default:
 				break;
 		}
@@ -85,6 +88,13 @@ public class Tela {
 		return qtdLida;
 	}
 	
+	public int lerQuantidade() {
+		exibeMensagensAlerta(11);
+		int qtdLida = sc.nextInt();
+		sc.nextLine();
+		return qtdLida;
+	}
+	
 	public double lerPrecoUnitario() {
 		exibeMensagensAlerta(3);
 		double precoLido = sc.nextDouble();
@@ -98,9 +108,9 @@ public class Tela {
 		return tipoLido;
 	}
 	
-	public void exibeResultadoCadastro(String nome) {
+	public void exibeResultadoCadastro(String nome, int quantidade) {
 		System.out.println("   ");
-		System.out.println(nome + " cadastrado com sucesso.");
+		System.out.println(quantidade + " " + nome + "(s) cadastrado com sucesso.");
 		System.out.println("   ");
 	}
 	
@@ -138,10 +148,18 @@ public class Tela {
 	public void exibeTotalDasVendas(double vendaTotal) {
 		System.out.println(" ");
 		System.out.println("Total arrecadado em vendas: R$ " + vendaTotal);
+	}
+	public void exibeTotalDasVendasNaoRealizadas(double vendasNaoRealizadas) {
+		System.out.println("Total que pode ser arrecadado: R$ " + vendasNaoRealizadas);
 		System.out.println(" ");
 	}
 	
 	public void exibeProdutoCadastrado(int contador, Produto produto) {
-		System.out.println(contador + " ) " + produto.getNome() + "(" + produto.getCategoria() + "). R$ " + produto.getPreco());
+		System.out.println(contador + " ) " + produto.getNome() + "(" + produto.getCategoria() + "). R$ " + produto.getPreco() +
+				" Restante: " + produto.getQuantidade());
+	}
+	
+	public void exibeVendaProibida(String nomeProduto) {
+		System.out.println("Não é possível vender pois não há " + nomeProduto +" suficiente.");
 	}
 }
