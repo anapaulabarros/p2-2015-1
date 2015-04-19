@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+
 import core.Produto;
 
 public class Tela {
@@ -41,6 +42,16 @@ public class Tela {
 			case 8:
 				System.out.println(" ");
 				System.out.print("Digite a quantidade que deseja vender: ");
+				System.out.println(" ");
+				break;
+			case 9:
+				System.out.println(" ");
+				System.out.println("= = = = Impressao de Balanco = = = =");
+				System.out.println(" ");
+				break;
+			case 10:
+				System.out.println(" ");
+				System.out.println("Nao há balanço, pois ainda não há vendas realizadas.");
 				System.out.println(" ");
 				break;	
 			default:
@@ -122,5 +133,15 @@ public class Tela {
 	
 	public void exibeTotalArrecadado(double totalArrecadoPorProduto) {
 		System.out.println("==> Total arrecadado: R$ " + totalArrecadoPorProduto);
+	}
+	
+	public void exibeTotalDasVendas(double vendaTotal) {
+		System.out.println(" ");
+		System.out.println("Total arrecadado em vendas: R$ " + vendaTotal);
+		System.out.println(" ");
+	}
+	
+	public void exibeProdutoCadastrado(int contador, Produto produto) {
+		System.out.println(contador + " ) " + produto.getNome() + "(" + produto.getCategoria() + "). R$ " + produto.getPreco());
 	}
 }

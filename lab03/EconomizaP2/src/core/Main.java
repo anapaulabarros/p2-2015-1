@@ -6,6 +6,7 @@ public class Main {
 			
 		Tela tela = new Tela();
 		Produto[] produtos = new Produto[5];
+		double[] listaVendas = new double[5];
 		int cont = 0;
 		
 		tela.exibeMensagensAlerta(1);
@@ -29,19 +30,33 @@ public class Main {
 					if (cont > 0 && produtos[cont - 1] != null){
 						String vendas = "Sim";
 						while (vendas.equals("Sim")) {
-							vendaProdutos(tela, produtos);
+							double valorVenda = vendaProdutos(tela, produtos);
+							listaVendas[cont] = valorVenda; //armazena os valores arrecadados da venda
 							String opcaoOperacao = tela.ContinuarVender();
 							if (opcaoOperacao.equals("Nao")) {
 								break;
 							}
-						} 
+						}
 					} else {
 						tela.exibeMensagensAlerta(7);
 					}
 					break;
 				case 3:
-					System.out.println("balanco");
-					System.exit(1);
+					double somaTotal = 0;
+					if (cont > 0 && produtos[cont - 1] != null){
+						tela.exibeMensagensAlerta(9);
+						System.out.println("Produtos cadastrados:");
+						for (int i = 0; i < produtos.length ; i++) {
+							if (produtos[i] != null) {
+								tela.exibeProdutoCadastrado(i + 1, produtos[i]);
+							}
+							somaTotal += listaVendas[i];
+						}
+						tela.exibeTotalDasVendas(somaTotal);
+					}else {
+						tela.exibeMensagensAlerta(10);
+					}
+					break;
 				case 4:
 					System.exit(1);
 				default:
@@ -69,7 +84,8 @@ public class Main {
 		}
 		return valor;
 	}
-	public static void vendaProdutos(Tela tela, Produto[] produtos){
+	public static double vendaProdutos(Tela tela, Produto[] produtos){
+		double valorVenda = 0;
 		tela.exibeMensagensAlerta(6);
 		String produtoProcurado = tela.lerNomeProduto();
 		
@@ -80,8 +96,10 @@ public class Main {
 			tela.exibeDetalhesProduto(produtos[resultadoBusca]);
 			int qtdProdutovender = tela.lerQuantidadeProduto();
 			double calculaTotal = calculaArracadacao(produtos[resultadoBusca].getPreco(), qtdProdutovender);
+			valorVenda = calculaTotal;
 			tela.exibeTotalArrecadado(calculaTotal);
 		}
+		return valorVenda;
 	}
 	
 	public static double calculaArracadacao(double preco, int qtdProduto){
