@@ -2,16 +2,18 @@ package core;
 import ui.Tela;
 
 public class Main {
+	static int tamanho_arrays = 5;
+	static Produto[] produtos = new Produto[tamanho_arrays];
+	static double[] listaVendas = new double[tamanho_arrays];
 	public static void main(String[] args) {
-			
-		Tela tela = new Tela();
-		Produto[] produtos = new Produto[5];
-		double[] listaVendas = new double[5];
-		int cont = 0;
+		
 		final int OP_CADASTRA = 1;
 		final int OP_VENDE = 2;
 		final int OP_BALANCO = 3;
 		final int OP_SAIR = 4;
+		
+		Tela tela = new Tela();
+		int cont = 0;
 		
 		tela.exibeMensagensAlerta(1);
 			
@@ -22,6 +24,10 @@ public class Main {
 					String cadastra = "Sim";
 					tela.exibeMensagensAlerta(5);
 					while (cadastra.equals("Sim")) {
+						
+						if (cont >= tamanho_arrays) {
+							AumentaTamanhoArray(tamanho_arrays);
+						}
 						cadastraProduto(tela, produtos, cont);
 						String opcaoOperacao = tela.ContinuarCadastar();
 						cont++;
@@ -31,12 +37,14 @@ public class Main {
 					}
 					break;
 				case OP_VENDE:
-					if (cont > 0 && produtos[cont - 1] != null){
+					int contAux = 1;
+					if (contAux > 0 && produtos[contAux - 1] != null){
 						String vendas = "Sim";
 						while (vendas.equals("Sim")) {
 							double valorVenda = vendaProdutos(tela, produtos);
-							listaVendas[cont] = valorVenda; //armazena os valores arrecadados da venda
+							listaVendas[contAux] = valorVenda; //armazena os valores arrecadados da venda
 							String opcaoOperacao = tela.ContinuarVender();
+							contAux++;
 							if (opcaoOperacao.equals("Nao")) {
 								break;
 							}
@@ -74,7 +82,17 @@ public class Main {
 		}		
 	}
 
-	public static void cadastraProduto(Tela tela, Produto[] produtos,int controle) {	
+	private static void AumentaTamanhoArray(int tamanho_arrays) {
+		Produto[] listaProdutosAux = new Produto[tamanho_arrays * 2];
+		System.arraycopy(produtos, 0, listaProdutosAux, 0, produtos.length);
+		produtos = listaProdutosAux;
+		
+		double[] listaVendasAux = new double[tamanho_arrays * 2];
+		System.arraycopy(listaVendas, 0, listaVendasAux, 0, listaVendas.length);
+		listaVendas = listaVendasAux;
+	}
+
+	public static void cadastraProduto(Tela tela, Produto[] produtos, int controle) {	
 		produtos[controle] = new Produto(tela.lerNomeProduto(), tela.lerPrecoUnitario(), tela.lerTipoProduto(), tela.lerQuantidade());
 		tela.exibeResultadoCadastro(produtos[controle].getNome(), produtos[controle].getQuantidade());
 	}
@@ -91,6 +109,7 @@ public class Main {
 		}
 		return valor;
 	}
+	
 	public static double vendaProdutos(Tela tela, Produto[] produtos){
 		double valorVenda = 0;
 		tela.exibeMensagensAlerta(6);
@@ -120,5 +139,6 @@ public class Main {
 		double total = preco * qtdProduto;
 		return total;
 	}
+	
 	
 }
