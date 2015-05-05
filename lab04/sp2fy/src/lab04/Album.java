@@ -26,7 +26,6 @@ public class Album {
 		this.tempoDuracaoAlbum = 0;
 	}
 	
-	
 	public boolean equals(Object outroAlbum) {
 			
 			if (outroAlbum instanceof Album)
@@ -35,7 +34,6 @@ public class Album {
 			else 
 				return false;
 	}
-	
 	public String getTitulo() {
 		return this.titulo;
 	}
@@ -44,13 +42,43 @@ public class Album {
 		return this.artista;
 	}
 	
+	public int getTempoTotalAlbum() {
+		return this.tempoDuracaoAlbum;
+	}
+	
 	public void adicionaMusicaNoAlbum(String nome, int duracao, String genero){
 		try {
 			Musica novaMusica = new Musica(nome, duracao, genero);
 			listaMusicas.add(novaMusica);
+			setTempoAlbum(duracao, "add"); // a cada musica adicionada no album, atualize o tempo total da duracao do album
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
+	public void setTempoAlbum(int duracao, String tipoOperacao) {
+		if(tipoOperacao.equals("add"))
+			this.tempoDuracaoAlbum += duracao;
+		else
+			this.tempoDuracaoAlbum -= duracao;
+	}
+	
+	//Remover esse Sysout da classe, apenas para teste nesse momento
+	public void getMusicasDoAlbum() {
+		for (Musica musica : listaMusicas) {
+			System.out.println(musica.getNome());
+		}
+	}
+	
+	public void removeMusicaDoAlbum(String nomeMusica) throws Exception {
+		if(nomeMusica == null || nomeMusica.equals(""))
+			throw new Exception("Nome da musica nao pode ser nula ou vazia.");
+		for(int i = 0; i < listaMusicas.size(); i++) {
+			Musica MusicaAtual = listaMusicas.get(i); 
+			if (MusicaAtual.getNome().equals(nomeMusica)){
+				listaMusicas.remove(i);
+				setTempoAlbum(MusicaAtual.getDuracao(), "del"); // A cada remocao de musica do album, altualiza o tempo total do album
+			}
+		}
+	}
 }

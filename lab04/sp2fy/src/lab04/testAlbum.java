@@ -20,6 +20,15 @@ public class testAlbum {
 			OperaOfMozart.adicionaMusicaNoAlbum("Se Vuole Ballare", 4, "Classical");
 			OperaOfMozart.adicionaMusicaNoAlbum("Via Resti Servita", 5, "Classical");
 			
+			//Teste para remover musica vazia do Album OperaOfMozart
+			try {
+				OperaOfMozart.removeMusicaDoAlbum("");
+				Assert.fail();
+			} catch (Exception e) {
+				Assert.assertEquals("Nome da musica nao pode ser nula ou vazia.", e.getMessage());
+			}
+			
+			
 		}catch (Exception e){
 			Assert.fail();
 		}
