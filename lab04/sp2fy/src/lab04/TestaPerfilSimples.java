@@ -9,6 +9,7 @@ public class TestaPerfilSimples {
 
 	private Musica dancandoJava;
 	private Album dancasJavolicas;
+	private Album dancasDoLinux;
 	private Perfil programador;
 	
 	@Test
@@ -16,14 +17,17 @@ public class TestaPerfilSimples {
 		try{
 			dancandoJava = new Musica("A danca do Java" , 3, "Pop");
 			dancasJavolicas = new Album("Gosling", "Suite de dancas", 2015);
+			dancasDoLinux = new Album("Torvalds", "Danca para relaxar", 2013);
 			programador = new Perfil("Zezinho programador");
 			
 			programador.adicionaAlbum(dancasJavolicas);
+			programador.adicionaAlbum(dancasDoLinux);
+			programador.adicionaAosFavoritos(dancasDoLinux);
 			
 		}catch (Exception e) {
 			Assert.fail();
 		}
-		//testa se album foi adicionado no perfil do usuario
+		Assert.assertEquals(dancasDoLinux, programador.getListaAlbunsFavoritos().get(0));
 		Assert.assertEquals(dancasJavolicas, programador.getListaAlbuns().get(0));
 	}
 

@@ -29,7 +29,7 @@ public class testMusica {
 			Assert.assertFalse(chandelier.equals(cellophane));
 
 		}catch(Exception e){
-			Assert.fail();//nao deveria ter lancado nenhuma Exception nesse teste.
+			Assert.fail();
 		}
 	}
 	
@@ -38,14 +38,14 @@ public class testMusica {
 	public void testMusicaInvalida(){
 		try {
 			Musica tituloInvalido = new Musica("",3,"Pop");
-			Assert.fail(); //se chegar aqui da erro, pois deveria lancar exception.
+			Assert.fail(); 
 		} catch (Exception e) {
 			Assert.assertEquals("Titulo da musica nao pode ser vazio.", e.getMessage());
 		}
 
 		try {
 			Musica duracaoInvalida = new Musica("Elastic Heart",-5,"Pop");
-			Assert.fail(); //se chegar aqui da erro, pois deveria lancar exception.
+			Assert.fail(); 
 		} catch (Exception e) {
 			Assert.assertEquals("Duracao da musica nao pode ser negativa.", e.getMessage());
 		}
@@ -53,7 +53,7 @@ public class testMusica {
 		
 		try {
 			Musica tipoInvalido = new Musica("Cellophane",4,"");
-			Assert.fail(); //se chegar aqui da erro, pois deveria lancar exception.
+			Assert.fail(); 
 		} catch (Exception e) {
 			Assert.assertEquals("Genero da musica nao pode ser vazio.", e.getMessage());
 		}

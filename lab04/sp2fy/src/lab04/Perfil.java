@@ -34,7 +34,9 @@ public class Perfil {
 	}
 	
 	public void adicionaAosFavoritos(Album album) {
-		
+		Album pesquisarAlbum = pesquisaAlbum( album.getTitulo());
+		if (pesquisarAlbum != null)
+			listaAlbunsFavoritos.add(album);
 	}
 	
 	private Album pesquisaAlbum(String nomeAlbum){
@@ -47,6 +49,10 @@ public class Perfil {
 	
 	public ArrayList<Album> getListaAlbuns(){
 		return this.listaAlbuns;
+	}
+	
+	public ArrayList<Album> getListaAlbunsFavoritos(){
+		return this.listaAlbunsFavoritos;
 	}
 	
 	public void adicionaMusicaAoAlbumSimples(String nomeAlbum, String nomeMusica, int duracaoMusica, String tipoMusica) throws Exception{

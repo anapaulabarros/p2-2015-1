@@ -52,7 +52,7 @@ public class Album {
 		try {
 			Musica novaMusica = new Musica(nome, duracao, genero);
 			listaMusicas.add(novaMusica);
-			setTempoAlbum(duracao, "add"); // a cada musica adicionada no album, atualize o tempo total da duracao do album
+			setTempoAlbum(duracao, "add"); 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -65,7 +65,7 @@ public class Album {
 			this.tempoDuracaoAlbum -= duracao;
 	}
 	
-	public ArrayList<Musica> getListaMusicas() { //retorna  lista de músicas existentes
+	public ArrayList<Musica> getListaMusicas() { 
 		return this.listaMusicas;
 	}
 	
@@ -73,10 +73,10 @@ public class Album {
 		if(nomeMusica == null || nomeMusica.equals(""))
 			throw new Exception("Nome da musica nao pode ser nula ou vazia.");
 		for(int i = 0; i < listaMusicas.size(); i++) {
-			Musica MusicaAtual = listaMusicas.get(i); 
-			if (MusicaAtual.getNome().equals(nomeMusica)){
+			Musica musicaAtual = listaMusicas.get(i); 
+			if (musicaAtual.getNome().equals(nomeMusica)){
 				listaMusicas.remove(i);
-				setTempoAlbum(MusicaAtual.getDuracao(), "del"); // A cada remocao de musica do album, altualiza o tempo total do album
+				setTempoAlbum(musicaAtual.getDuracao(), "del"); 
 			}
 		}
 	}
