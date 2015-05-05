@@ -26,6 +26,7 @@ public class Album {
 		this.tempoDuracaoAlbum = 0;
 	}
 	
+	@Override
 	public boolean equals(Object outroAlbum) {
 			
 			if (outroAlbum instanceof Album)
@@ -34,6 +35,7 @@ public class Album {
 			else 
 				return false;
 	}
+	
 	public String getTitulo() {
 		return this.titulo;
 	}
@@ -63,11 +65,8 @@ public class Album {
 			this.tempoDuracaoAlbum -= duracao;
 	}
 	
-	//Remover esse Sysout da classe, apenas para teste nesse momento
-	public void getMusicasDoAlbum() {
-		for (Musica musica : listaMusicas) {
-			System.out.println(musica.getNome());
-		}
+	public ArrayList<Musica> getListaMusicas() { //retorna  lista de músicas existentes
+		return this.listaMusicas;
 	}
 	
 	public void removeMusicaDoAlbum(String nomeMusica) throws Exception {
