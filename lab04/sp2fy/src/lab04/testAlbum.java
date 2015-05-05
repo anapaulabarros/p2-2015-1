@@ -16,9 +16,36 @@ public class testAlbum {
 			Assert.assertEquals("Mozart", OperaOfMozart.getArtista());
 			Assert.assertEquals("Beethoven", SymphonyOfBeethoven.getArtista());
 			
+			
+			OperaOfMozart.adicionaMusicaNoAlbum("Se Vuole Ballare", 4, "Classical");
+			OperaOfMozart.adicionaMusicaNoAlbum("Via Resti Servita", 5, "Classical");
+			
 		}catch (Exception e){
-			Assert.fail();//nao deveria ter lancado nenhuma Exception nesse teste.
+			Assert.fail();
 		}
+	}
+	
+	@Test
+	public void testAlbumInvalido(){
+		try {
+			Album artistaInvalido = new Album("","Nocturnes",1790);
+			Assert.fail(); 
+		} catch (Exception e) {
+			Assert.assertEquals("Nome do artista nao pode ser nulo ou vazio.", e.getMessage());
+		}
+		try {
+			Album tituloInvalido = new Album("Chopin","",1790);
+			Assert.fail(); 
+		} catch (Exception e) {
+			Assert.assertEquals("Titulo do album nao pode ser nulo ou vazio.", e.getMessage());
+		}
+		try {
+			Album anoInvalido = new Album("Chopin","Nocturne",-1);
+			Assert.fail(); 
+		} catch (Exception e) {
+			Assert.assertEquals("Ano de lancamento do album nao pode ser negativo.", e.getMessage());
+		}
+		
 	}
 
 }

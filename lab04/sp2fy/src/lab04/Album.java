@@ -19,6 +19,7 @@ public class Album {
 			throw new Exception("Titulo do album nao pode ser nulo ou vazio.");
 		if (anoLancamento < 0)
 			throw new Exception("Ano de lancamento do album nao pode ser negativo.");
+		this.listaMusicas = new ArrayList<Musica>();
 		this.artista = artista;
 		this.titulo = titulo;
 		this.anoLancamento = anoLancamento;
@@ -41,6 +42,15 @@ public class Album {
 	
 	public String getArtista() {
 		return this.artista;
+	}
+	
+	public void adicionaMusicaNoAlbum(String nome, int duracao, String genero){
+		try {
+			Musica novaMusica = new Musica(nome, duracao, genero);
+			listaMusicas.add(novaMusica);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }
