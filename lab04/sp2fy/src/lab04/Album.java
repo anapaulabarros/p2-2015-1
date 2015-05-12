@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import lab04.Musica;
 
-public class Album {
+public class Album implements Comparable<Album> {
 	
 	private ArrayList<Musica> listaMusicas;
 	private String artista;
@@ -79,5 +79,27 @@ public class Album {
 				setTempoAlbum(musicaAtual.getDuracao(), "del"); 
 			}
 		}
+	}
+	
+	@Override
+	public int compareTo(final Album outroAlbum) {
+		if (this.anoLancamento == outroAlbum.anoLancamento)
+			return 0;
+		else
+			return this.anoLancamento > outroAlbum.anoLancamento ? 1 : -1;
+	}
+	
+	public int compareNomeArtista (Album outroAlbum) {
+		if(this.artista.equals(outroAlbum.artista))
+			return 0;
+		else
+			return this.artista.length() > outroAlbum.artista.length() ? 1 : -1;
+	}
+	
+	public int compareTempoDuracao(Album outroAlbum) {
+		if (this.tempoDuracaoAlbum == outroAlbum.tempoDuracaoAlbum)
+			return 0;
+		else
+			return this.tempoDuracaoAlbum > outroAlbum.tempoDuracaoAlbum ? 1 : -1;
 	}
 }

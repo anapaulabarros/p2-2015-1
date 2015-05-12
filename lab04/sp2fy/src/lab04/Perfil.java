@@ -1,6 +1,8 @@
 package lab04;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Perfil {
 	private String nome;
@@ -48,7 +50,8 @@ public class Perfil {
 	}
 	
 	public ArrayList<Album> getListaAlbuns(){
-		return this.listaAlbuns;
+		Collections.sort(listaAlbuns);
+		return listaAlbuns;
 	}
 	
 	public ArrayList<Album> getListaAlbunsFavoritos(){
@@ -61,5 +64,4 @@ public class Perfil {
 			album.adicionaMusicaNoAlbum(nomeAlbum,duracaoMusica, tipoMusica);
 		}
 	}
-	
 }
