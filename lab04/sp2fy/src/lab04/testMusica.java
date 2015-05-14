@@ -3,7 +3,7 @@ package lab04;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class testMusica {
+public class TestMusica {
 
 	@Test
 	public void test() {

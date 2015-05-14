@@ -3,6 +3,7 @@ package lab04;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Perfil {
@@ -17,6 +18,7 @@ public class Perfil {
 		this.nome = nomeUsuario;
 		this.listaAlbunsFavoritos = new ArrayList<Album>();
 		this.listaAlbuns = new ArrayList<Album>();
+		this.playListas = new HashMap<String, ArrayList<Musica>>();
 	}
 	
 	
@@ -60,6 +62,10 @@ public class Perfil {
 		return this.listaAlbunsFavoritos;
 	}
 	
+	public Map<String, ArrayList<Musica>> getListaPlayList() {
+		return this.playListas;
+	}
+	
 	public void adicionaMusicaAoAlbumSimples(String nomeAlbum, String nomeMusica, int duracaoMusica, String tipoMusica) throws Exception{
 		Album album = pesquisaAlbum(nomeAlbum);
 		if (album != null){
@@ -73,7 +79,7 @@ public class Perfil {
 			throw new Exception("Nome da PlayList nao pode ser nula ou vazia.");
 		if (nomeAlbum == null || nomeAlbum.equals(""))
 			throw new Exception("Nome do Album nao pode ser nula ou vazia.");
-		if (faixa <= 0 || faixa > listaAlbuns.size())
+		if (faixa < 0 || faixa > listaAlbuns.size())
 			throw new Exception("A faixa especificada nao possui intevalo valido.");
 		
 		ArrayList<Musica> musicasDaPlayList;

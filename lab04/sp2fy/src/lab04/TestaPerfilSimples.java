@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestaPerfilSimples {
+public class testaPerfilSimples {
 
 	private Musica dancandoJava;
 	private Album dancasJavolicas;
